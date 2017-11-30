@@ -1,4 +1,4 @@
-# Getting started with extended transcripts
+# Getting started with the IMS Extended Transcript standard
 ## Part 1: Let's build an extended transcript!
 
 **TODO: add TOC**
