@@ -1,0 +1,33 @@
+{
+  "@context": "https://purl.imsglobal.org/ctx/extended-transcript/v1p0",
+  "id": "urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
+  "type": "ExtendedTranscript",
+  "createdAt": "2017-04-25T00:00:00.00Z",
+  "issuer": {
+    "id": "urn:uuid:618374e0-e761-4ccb-813a-db66e1d08310",
+    "type": "Issuer",
+    "name": "Mars University",
+    "url": "http://example.org/mars-u",
+    "address": "123 E St NW, Washington, DC 20004",
+    "phone": "0000000000",
+    "issuingPersonFullName": "Inez Wong"
+  },
+  "person": {
+    "id": "urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
+    "type": "Person",
+    "fullName": "Philip J. Fry",
+    "givenName": "Philip",
+    "familyName": "Fry",
+    "email": "pfry@example.org",
+    "phone": "0000000000",
+    "mobile": "0000000000",
+    "url": "http://example.org/pfry",
+    "studentId": "123456789",
+    "birthDate": "1974-08-14",
+    "sourcedId": "0123456789"
+  },
+  "transcriptEntities": {
+    "id": "urn:uuid:9a065540-5fc8-4fed-9dc1-a28ad51e8ee8",
+    "type": "TranscriptEntitySet"
+  }
+}
