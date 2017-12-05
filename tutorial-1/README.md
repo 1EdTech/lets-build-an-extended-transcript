@@ -1,30 +1,29 @@
 # Let's build an extended transcript!
 
-## <a name="contents"></a> Contents
+## Contents
 
-* [Overview](#overview)
-  - [What's an extended transcript?](#what-is-et)
-  - [In this tutorial](#in-this-tutorial)
-* [Your first transcript!](#first-transcript)
-  - [About JSON-LD](#jsonld)
-  - [Minimal example](#minimal-example)
-  - [Adding a competency](#add-competency)
-  - [Adding another competency](#add-another-competency)
-  - [Associating the competencies](#associating-competencies)
-  - [Adding a degree program and a course](#add-degree-course)
-  - [Specifying multiple parents](#multiple-parents)
-* [Closing thoughts](#closing-thoughts)
-* [Appendix](#appendix)
-  - [Complete transcript](#complete-transcript)
+* [Overview](./tutorial.md#overview)
+    * [What's an extended transcript?](./tutorial.md#what-is-et)
+    * [In this tutorial](./tutorial.md#in-this-tutorial)
+* [Your first transcript!](./tutorial.md#first-transcript)
+    * [About JSON-LD](./tutorial.md#jsonld)
+    * [Minimal example](./tutorial.md#minimal-example)
+    * [Adding a competency](./tutorial.md#add-competency)
+    * [Adding another competency](./tutorial.md#add-another-competency)
+    * [Associating the competencies](./tutorial.md#associating-competencies)
+    * [Adding a degree program and a course](./tutorial.md#add-degree-course)
+    * [Specifying multiple parents](./tutorial.md#multiple-parents)
+* [Closing thoughts](./tutorial.md#closing-thoughts)
+* [Appendix](./tutorial.md#appendix)
+    * [Complete transcript](./tutorial.md#complete-transcript)
 
-
-## <a name="overview"></a> Overview
+## <a id="overview"></a> Overview
 
 If you attended a postsecondary institution, you probably know what a transcript is: a document (often a PDF or sheet of paper) with a list of courses and associated credits and grades issued by the registrar at an educational institution. This document is usually available upon request by the learner and sent directly to third parties (other educational institutions or employers) in order to provide a verified summary of a learner's educational experience.
 
 So, what's an extended transcript, and how is it different from a traditional transcript?
 
-### <a name="what-is-et"></a> What's an extended transcript?
+### <a id="what-is-et"></a> What's an extended transcript?
 
 While a transcript is useful for verifying a learner's educational background, it doesn't say much about the learner's journey. What material was covered in a given course? What assessments were used? What was the course's relationship to a program or degree? What skills did a learner demonstrate, and in what areas is the learner strong or still growing?
 
@@ -38,7 +37,7 @@ The Extended Transcript standard supports interoperability with other IMS standa
 
 Due to its rich data model and interoperability with other standards, the Extended Transcript standard has a lot of potential in terms of integrating systems. Transcript clients can fetch transcripts in order to show learners, employers, and advisors different views of learner progress and achievements. It can also be used by the learner to share a collection badges with a badge displayer, or it can be used by employers and educational partners to match learners with professional opportunities. One day, it could even be used by institutions to automatically recognize prior educational achievements.
 
-### <a name="in-this-tutorial"></a> In this tutorial
+### <a id="in-this-tutorial"></a> In this tutorial
 
 We're going to learn about the transcript data model by building a transcript from scratch!
 
@@ -46,33 +45,33 @@ While you do so, I encourage you to review your transcript by uploading it to th
 
 <table class="image">
 <caption align="bottom">The [IMS Extended Transcript Viewer](http://projects.imsglobal.org/eT-viewer/). You can either upload an transcript or view one of the available samples.</caption>
-<tr><td><img src="images/1.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/1.png"  /></td></tr>
 </table>
 
 <table class="image">
 <caption align="bottom">This is one of the predefined transcript samples. Madison is enrolled in a fictional institution, CBU, and has attended two computer science degree programs.</caption>
-<tr><td><img src="images/2.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/2.png"  /></td></tr>
 </table>
 
 Note that the Extended Transcript standard does not prescribe what a transcript looks like, or how a transcript viewer should behave. <a href="http://learningobjects.com/#/">Learning Objects</a> created this viewer for the IMS community to encourage adoption (and since then, other member institutions have contributed to the project), but other transcript viewers may look very different, perhaps omitting some types of data or displaying relationships differently.
 
 <table class="image">
 <caption align="bottom">Same transcript as above, but displayed in the Learning Objects transcript viewer. In this screenshot, the viewer is configured to only display  competencies.</caption>
-<tr><td><img src="images/3.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/3.png"  /></td></tr>
 </table>
 
 <table class="image">
 <caption align="bottom">Same sample and viewer, but this time the viewer is configured to display courses. While the Extended Transcript standard provides a data model, it does not prescribe how a transcript should appear or what it must contain.</caption>
-<tr><td><img src="images/4.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/4.png"  /></td></tr>
 </table>
 
-## <a name="first-transcript"></a> Your first transcript!
+## <a id="first-transcript"></a> Your first transcript!
 
 To get started, all you need is a text editor. If you use a Mac, you can use TextEdit (under "Format" menu, select "Make Plain Text"), and if you use MS Windows, you can use Notepad. I'm using [Atom Editor](https://atom.io/), and there are plenty of other open source options out there.
 
 Knowledge of [JSON](https://www.json.org/) will be helpful. However, you may be able to follow along. If you get stuck, jump the [complete transcript](#complete-transcript) in the appendix.
 
-### <a name="jsonld"></a> About JSON-LD
+### <a id="jsonld"></a> About JSON-LD
 
 Before we start, you might have heard that the Extended Transcript standard uses [JSON-LD](https://json-ld.org/). (It does!)
 
@@ -80,7 +79,7 @@ You might have heard things about JSON-LD that make it sound technically or conc
 
 Which is great, because if you or your consumers care about linked data in the future, you'll be able to leverage its JSON-LD capabilities.
 
-### <a name="minimal-example"></a> Minimal example
+### <a id="minimal-example"></a> Minimal example
 
 Open your text editor, and create a new file: `my-first-transcript.json`
 
@@ -117,7 +116,7 @@ Go ahead an upload it to the [IMS Extended Transcript Viewer](http://projects.im
 
 <table class="image">
 <caption align="bottom">Our minimal extended transcript.</caption>
-<tr><td><img src="images/5.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/5.png"  /></td></tr>
 </table>
 
 Let's break this down. Here's what the transcript is telling us:
@@ -196,7 +195,7 @@ Go ahead and try adding some more fields to your user and issuer:
 
 As a bonus, try adding a `logo` to issuer. (*Hint*: look at the examples in the IMS Extended Transcript Viewer; you can access their source via the "Source" link after selecting the transcript.)
 
-### <a name="add-competency"></a> Adding a competency
+### <a id="add-competency"></a> Adding a competency
 
 Let's add a competency to our transcript:
 
@@ -328,7 +327,7 @@ You should see something this:
 
 <table class="image">
 <caption align="bottom">Our transcript should now have one competency in it.</caption>
-<tr><td><img src="images/6.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/6.png"  /></td></tr>
 </table>
 
 What if Amy is still working on this competency? This this:
@@ -359,7 +358,7 @@ What if Amy is still working on this competency? This this:
 }
 ```
 
-### <a name="add-another-competency"></a> Adding another competency
+### <a id="add-another-competency"></a> Adding another competency
 
 Say "Harnessing Planentary Rotational Energy" is part of a higher level competency, "Alternative Energy".
 
@@ -432,10 +431,10 @@ We have one more step, but before we proceed, save your changes and upload the t
 
 <table class="image">
 <caption align="bottom">Our transcript should now have two unrelated competencies.</caption>
-<tr><td><img src="images/7.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/7.png"  /></td></tr>
 </table>
 
-### <a name="associating-competencies"></a> Associating the competencies
+### <a id="associating-competencies"></a> Associating the competencies
 
 Third, let's declare that "Alternative Energy" is the parent of "Harnessing Planentary Rotational Energy":
 
@@ -477,7 +476,7 @@ Save the changes and upload it to the viewer.
 
 <table class="image">
 <caption align="bottom">The competencies are now associated via a parent-child association.</caption>
-<tr><td><img src="images/8.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/8.png"  /></td></tr>
 </table>
 
 Alternatively, we could have declared that "Harnessing Planentary Rotational Energy" is the child of "Alternative Energy" using the `"isChildOf"` type. Can you figure out how?
@@ -488,7 +487,7 @@ There are a total of ten available association types, though you will probably m
 
 To learn more about available associations, see the [AssocationType Vocabulary Description](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-InformationModel/ETServiceGroup_InfoModel.html#Enumerated_AssociationType) section within the Information Model documentation.
 
-### <a name="add-degree-course"></a> Adding a degree program and a course
+### <a id="add-degree-course"></a> Adding a degree program and a course
 
 Let's wrap up this tutorial by adding a couple new transcript entity types.
 
@@ -583,10 +582,10 @@ If you load your transcript in the viewer, you should see this:
 
 <table class="image">
 <caption align="bottom">The transcript now includes two competencies, a course, and a degree program.</caption>
-<tr><td><img src="images/9.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/9.png"  /></td></tr>
 </table>
 
-### <a name="multiple-parents"></a> Specifying multiple parents
+### <a id="multiple-parents"></a> Specifying multiple parents
 
 The final enhancement we want to make will demonstrate the flexibility of associations.
 
@@ -629,12 +628,12 @@ If you load your transcript in the viewer, you should see this:
 
 <table class="image">
 <caption align="bottom">"Harnessing Planentary Rotational Energy" now has two parents.</caption>
-<tr><td><img src="images/10.png" width="576" height="360" /></td></tr>
+<tr><td><img src="images/10.png"  /></td></tr>
 </table>
 
 > *Technical aside*: the transcript entities are a collection of directed (potentially cyclical) graphs, and are not guaranteed to form trees.
 
-## <a name="closing-thoughts"></a> Closing thoughts
+## <a id="closing-thoughts"></a> Closing thoughts
 
 I hope this tutorial has provided a useful introduction to the Extended Transcript data model. At first blush, it may seem complicated (yes, our example is around 140 lines!), but it is conceptually quite simple.
 
@@ -647,9 +646,9 @@ As we saw earlier in the tutorial, there need not be a record for every entity, 
 
 We didn't cover many details, including extensibility, verification, Open Badge capabilities, and alignment with other standards. For a deeper dive, take a look at the [IMS Extended Transcript](http://www.imsglobal.org/activity/extended-transcript) page, and look at the sample transcripts in the IMS Transcript Viewer.
 
-## <a name="appendix"></a> Appendix
+## <a id="appendix"></a> Appendix
 
-### <a name="completed-transcript"></a> Completed transcript
+### <a id="completed-transcript"></a> Completed transcript
 
 ```json
 {
