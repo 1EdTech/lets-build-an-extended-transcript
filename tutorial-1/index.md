@@ -244,6 +244,8 @@ A few things to note:
 * The value of `result` is `"Mastered"`; we're declaring that Amy mastered the referenced competency.
 * Both the `Competency`'s `id` and the `TranscriptEntityLink`'s `entityId` have the same value, `"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C"`. This is how a record references a transcript entity.
 
+What about the `Record`'s `id`? Just like the `id` belonging to the entire transcript, it's required, though you may never use it. For transcripts you generate, you may generate random values.
+
 (Technical aside: `result` has an open vocabulary; there are no restrictions on what values you can set to result, as long as it is a string.)
 
 So here's what we have so far:
@@ -458,13 +460,15 @@ Alternatively, we could have declared that "Harnessing Planentary Rotational Ene
 
 There are a total of ten available association types, though you will probably mostly use `"isParentOf"` or `"isChildOf"`. Any transcript entity may have an association with any association type with any other transcript entities, though the provider is responsible for generating meaningful transcripts. (E.g., don't generate a transcript where A is parent of B, which is parent of A.)
 
-To learn more about available associations, see the [AssocationType Vocabulary Description](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-InformationModel/ETServiceGroup_InfoModel.html#Enumerated_AssociationType) section within the Extended Transcript Service Information Model documentation.
+To learn more about available associations, see the [AssocationType Vocabulary Description](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-InformationModel/ETServiceGroup_InfoModel.html#Enumerated_AssociationType) section within the Information Model documentation.
 
 ### <a name=""></a> Adding a degree program and a course
 
 Let's wrap up this tutorial by adding a couple more transcript entity types.
 
-Amy is working on her PhD in Applied Physics, and she took a course in applied alternative energies:
+Amy is working on her PhD in Applied Physics, and she took a course in applied alternative energies.
+
+Let's define the transcript entities first:
 
 ```
 {
@@ -475,14 +479,291 @@ Amy is working on her PhD in Applied Physics, and she took a course in applied a
     ],
     "courses": [
       {
-
+        "id": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+        "type": "Course",
+        "name": "Alternative Energies",
+        "courseCode": "PHY652"
       }
     ],
     "degrees": [
       {
-
+        "id": "urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1",
+        "type": "Degree",
+        "name": "Applied Physics",
+        "level": "Doctorate",
+        "associations": [
+          {
+            "id": "urn:uuid:e4ca862f-a322-4f9e-9222-6d8ce17582c5",
+            "type": "Association",
+            "entityType": "Course",
+            "entityId": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+            "associationType": "isParentOf"
+          }
+        ]
       }
     ]
   }
 }
+```
+
+Note that the degree is the parent of the course.
+
+Next, let's create records:
+
+```
+{
+  ...
+  "records": [
+    {
+      ...
+    },{
+      ...
+    },{
+      "id": "urn:uuid:304abbae-6c2c-41af-b425-c5d7ce26bcdc",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "In Progress",
+      "recordOf": {
+        "id": "urn:uuid:227263e6-0798-43bc-bb45-efa21311d964",
+        "type": "TranscriptEntityLink",
+        "entityType": "Degree",
+        "entityId": "urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1"
+      },
+      "status": {
+        "id": "urn:uuid:1ec6e8e0-7772-4721-aacd-5120b8da6478",
+        "type": "RecordStatus",
+        "completed": false
+      }
+    },{
+      "id": "urn:uuid:630e3899-ed94-4c2d-be74-2f6d24f31774",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "A-",
+      "recordOf": {
+        "id": "urn:uuid:9b058f5b-c807-478b-aa6c-394c7d3c1f57",
+        "type": "TranscriptEntityLink",
+        "entityType": "Course",
+        "entityId": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1"
+      }
+    }
+  ],
+  ...
+}
+```
+
+Again, we see that the `TranscriptEntityLink`'s `entityId` matches the relevant entity's `id`.
+
+If you load your transcript in the viewer, you should see this:
+
+<table class="image">
+<caption align="bottom">The transcript now includes two competencies, a course, and a degree program.</caption>
+<tr><td><img src="images/9.png" width="576" height="360" /></td></tr>
+</table>
+
+### <a name=""></a> Multiple parents
+
+The final enhancement we want to make will demonstrate the flexibility of associations.
+
+Let's say that the "Harnessing Planetary Rotational Energy" competency is taught in PHY652. I.e., this competency will have two parents.
+
+Let's update the definition of the course to achieve this:
+
+```
+{
+  ...,
+  "transcriptEntities": {
+    "competencies": [
+      ...
+    ],
+    "courses": [
+      {
+        "id": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+        "type": "Course",
+        "name": "Alternative Energies",
+        "courseCode": "PHY652"
+      },
+      "associations": [
+        {
+          "id": "urn:uuid:ca8193b0-0ee5-487c-a8f8-ea4b839aab58",
+          "type": "Association",
+          "entityType": "Competency",
+          "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+          "associationType": "isParentOf"
+        }
+      ]
+    ],
+    "degrees": [
+      ...
+    ]
+  }
+}
+```
+
+If you load your transcript in the viewer, you should see this:
+
+<table class="image">
+<caption align="bottom">"Harnessing Planentary Rotational Energy" has two parents.</caption>
+<tr><td><img src="images/10.png" width="576" height="360" /></td></tr>
+</table>
+
+(*Technical aside*: the transcript entities are a directed graph, but not guaranteed to be a tree.)
+
+## <a name=""></a> Closing thoughts
+
+I hope this tutorial has demonstrated the simplicity and flexibility of creating a transcript. At first blush, it may seem complicated (yes, our example is around hundred-forty lines!), but conceptually simple.
+
+In review:
+* You specify the issuer (the educational institution) and person (the learner)
+* You specify transcript entities to describe the potential experiences
+* You specify records to describe the learner's experience with the transcript entities
+
+As we saw, there need not be a record for every entity.
+
+We didn't cover many details, including extensibility, Open Badge capabilities, alignment with other standards, etc. Check out the [IMS Extended Transcript](http://www.imsglobal.org/activity/extended-transcript) page, and I recommend you review the [Recommended Practices document](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-Bestpractices/etservicev1p0_bestpracticesv1p0.html).
+
+## Appendix
+
+### Completed transcript
+
+```json
+{
+  "@context": "https://purl.imsglobal.org/ctx/extended-transcript/v1p0",
+  "id": "urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
+  "type": "ExtendedTranscript",
+  "createdAt": "2017-04-25T00:00:00.00Z",
+  "issuer": {
+    "id": "urn:uuid:618374e0-e761-4ccb-813a-db66e1d08310",
+    "type": "Issuer",
+    "name": "Mars University",
+    "url": "http://example.org/mars-u",
+    "address": "123 E St NW, Washington, DC 20004",
+    "phone": "0000000000",
+    "issuingPersonFullName": "Inez Wong"
+  },
+  "person": {
+    "id": "urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
+    "type": "Person",
+    "fullName": "Amy Wong",
+    "givenName": "Amy",
+    "familyName": "Wong",
+    "email": "awong@example.org",
+    "phone": "0000000000",
+    "mobile": "0000000000",
+    "url": "http://example.org/awong",
+    "studentId": "123456789",
+    "birthDate": "1974-08-14",
+    "sourcedId": "0123456789"
+  },
+  "records": [
+    {
+      "id": "urn:uuid:327de957-910c-4b8d-bdb4-2efc79ebc0e9",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "Mastered",
+      "recordOf": {
+        "id": "urn:uuid:ec7fdc47-5787-4992-b49c-d47f400dcee2",
+        "type": "TranscriptEntityLink",
+        "entityType": "Competency",
+        "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C"
+      }
+    },{
+      "id": "urn:uuid:ac10a029-05e7-4364-8521-97c3a4018388",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "Mastered",
+      "recordOf": {
+        "id": "urn:uuid:c8d04637-c503-455a-b1d8-826f1e23eb7f",
+        "type": "TranscriptEntityLink",
+        "entityType": "Competency",
+        "entityId": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e"
+      }
+    },{
+      "id": "urn:uuid:304abbae-6c2c-41af-b425-c5d7ce26bcdc",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "In Progress",
+      "recordOf": {
+        "id": "urn:uuid:227263e6-0798-43bc-bb45-efa21311d964",
+        "type": "TranscriptEntityLink",
+        "entityType": "Degree",
+        "entityId": "urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1"
+      },
+      "status": {
+        "id": "urn:uuid:1ec6e8e0-7772-4721-aacd-5120b8da6478",
+        "type": "RecordStatus",
+        "completed": false
+      }
+    },{
+      "id": "urn:uuid:630e3899-ed94-4c2d-be74-2f6d24f31774",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "A-",
+      "recordOf": {
+        "id": "urn:uuid:9b058f5b-c807-478b-aa6c-394c7d3c1f57",
+        "type": "TranscriptEntityLink",
+        "entityType": "Course",
+        "entityId": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1"
+      }
+    }
+  ],
+  "transcriptEntities": {
+    "id": "urn:uuid:98f56753-973d-4c2d-865a-f567c9896ed7",
+    "type": "TranscriptEntitySet",
+    "competencies": [
+      {
+        "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+        "type": "Competency",
+        "name": "Harnessing Planentary Rotational Energy"
+      },{
+        "id": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",
+        "type": "Competency",
+        "name": "Alternative Energy",
+        "associations": [
+          {
+            "id": "urn:uuid:7aade551-fbc8-44b5-8b96-036632858117",
+            "type": "Association",
+            "entityType": "Competency",
+            "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+            "associationType": "isParentOf"
+          }
+        ]
+      }
+    ],
+    "courses": [
+      {
+        "id": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+        "type": "Course",
+        "name": "Alternative Energies",
+        "courseCode": "PHY652",
+        "associations": [
+          {
+            "id": "urn:uuid:ca8193b0-0ee5-487c-a8f8-ea4b839aab58",
+            "type": "Association",
+            "entityType": "Competency",
+            "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+            "associationType": "isParentOf"
+          }
+        ]
+      }
+    ],
+    "degrees": [
+      {
+        "id": "urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1",
+        "type": "Degree",
+        "name": "Applied Physics",
+        "level": "Doctorate",
+        "associations": [
+          {
+            "id": "urn:uuid:e4ca862f-a322-4f9e-9222-6d8ce17582c5",
+            "type": "Association",
+            "entityType": "Course",
+            "entityId": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+            "associationType": "isParentOf"
+          }
+        ]
+      }
+    ]
+  }
+}
+
 ```
