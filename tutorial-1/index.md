@@ -5,23 +5,23 @@
 
 ## <a name=""></a> Overview
 
-If you attended a postsecondary institution, you probably have a clear understanding of what a traditional transcript is: a document (often physical) with a list of courses and their associated credits and grades issued by the registrar at an education institution. This document is usually available upon request by the learner and sent directly to third parties (other educational institutions or employers) in order to provide a verified summary of a learner's educational experience.
+If you attended a postsecondary institution, you probably know what a transcript is: a document (often physical) with a list of courses and their associated credits and grades issued by the registrar at an educational institution. This document is usually available upon request by the learner and sent directly to third parties (other educational institutions or employers) in order to provide a verified summary of a learner's educational experience.
 
 So, what's an extended transcript, and how is it different from a traditional transcript?
 
 ### <a name=""></a> What's an extended transcript?
 
-Though a transcript is be useful for verifying a learner's educational background, it doesn't say much about the learner's journey. What material was covered in a given course? What assessments were used? What was the course's relationship to a program or degree? What skills did a learner demonstrate, and in what areas is the learner strong versus still growing?
+While a transcript is useful for verifying a learner's educational background, it doesn't say much about the learner's journey. What material was covered in a given course? What assessments were used? What was the course's relationship to a program or degree? What skills did a learner demonstrate, and in what areas is the learner strong or still growing?
 
 The Extended Transcript standard defines a data model and service for institutions to provide details about learner achievements. It provides additional granularity to traditional transcripts, offering institutions the ability to recognize achievements beyond course and degree completion.
 
-The standard embraces (but doesn't require) competency-based education (CBE). The Extended Transcript standard supports competencies, each of which may have complex relationships with other competencies. A transcript can represent anything from a flat list of skills to a complex ontology of competencies with alignments to other competency standards, and the institution can express a range of proficiency levels and outcomes.
+The standard supports (but doesn't presume) competency-based education (CBE). The Extended Transcript standard supports competencies, each of which may have complex relationships with other competencies. A transcript can represent anything from a flat list of skills to a complex ontology of competencies with alignments to other competency standards, and the institution can express a range of proficiency levels and outcomes.
 
-Beyond the competency model, an extended transcript can include information about courses and degree programs, as well as assessments, certificates, extracurriculars. Additionally, it provides a catch-all achievement type, and the data model is extensible. All of these types may have explicit relationships, and may even reference evidence.
+Beyond the competency model, an extended transcript can include information about courses and degree programs, as well as assessments, certificates, and extracurriculars. Additionally, it provides a catch-all achievement type, and the data model is extensible. All of these types may have explicit relationships, and may even reference evidence.
 
 The Extended Transcript standard supports interoperability with other IMS standards, such as Learning Information Systems (LIS) and the new Competencies & Academic Standards Exchange (CASE). An extended transcript can contain references to hosted badge assertions from the Open Badges standard. (Futhermore, the transcript itself can appear within a badge assertion in order to make the transcript itself verifiable!)
 
-Due to its rich data model and interoperability with other standards, the Extended Transcript standard has a lot of potential in terms of integrating systems. Transcript clients could fetch transcripts in order to show learners, employers, and advisors different views of learner progress and achievements through out and beyond the educational experience. It can also be used by the learner to share a collection badges with a badge displayer, or it can be used by employers and educational partners to match learners with professional opportunities. One day, it could even be used by institutions to automatically recognize prior educational achievements.
+Due to its rich data model and interoperability with other standards, the Extended Transcript standard has a lot of potential in terms of integrating systems. Transcript clients can fetch transcripts in order to show learners, employers, and advisors different views of learner progress and achievements. It can also be used by the learner to share a collection badges with a badge displayer, or it can be used by employers and educational partners to match learners with professional opportunities. One day, it could even be used by institutions to automatically recognize prior educational achievements.
 
 ## <a name=""></a> In the tutorial
 
@@ -39,27 +39,27 @@ While you do so, I encourage you to review your transcript by uploading it to th
 <tr><td><img src="images/2.png" width="576" height="360" alt="Madison's transcript loaded in the IMS Extended Transcript Viewer"/></td></tr>
 </table>
 
-Note that the Extended Transcript standard does not prescribe what a transcript looks like, or how a transcript viewer should behave. We created this viewer for the EdTech community in order to encourage adoption and demonstrate how the standard works, but other transcript viewers may look very different, perhaps omitting some types of data or displaying relationships differently.
+Note that the Extended Transcript standard does not prescribe what a transcript looks like, or how a transcript viewer should behave. Learning Objects created this viewer for the IMS community (and since then, other members have contributed!) in order to encourage adoption and demonstrate how the standard works, but other transcript viewers may look very different, perhaps omitting some types of data or displaying relationships differently.
 
 <table class="image">
-<caption align="bottom">Same transcript as above, but displayed in the <a href="http://learningobjects.com/#/">Learning Objects</a> transcript viewer. Currently displayed using competency-centric settings.</caption>
+<caption align="bottom">Same transcript as above, but displayed in the <a href="http://learningobjects.com/#/">Learning Objects</a> transcript viewer. In this screenshot, the viewer is configured to only display  competencies.</caption>
 <tr><td><img src="images/3.png" width="576" height="360" alt="LO Extended Transcript Viewer"/></td></tr>
 </table>
 
 <table class="image">
-<caption align="bottom">Same sample and viewer, but the viewer is configured to display courses. While the Extended Transcript standard provides a data model, it does not prescribe how a transcript should appear or what it must contain.</caption>
+<caption align="bottom">Same sample and viewer, but this time the viewer is configured to display courses. While the Extended Transcript standard provides a data model, it does not prescribe how a transcript should appear or what it must contain.</caption>
 <tr><td><img src="images/4.png" width="576" height="360" alt="LO Extended Transcript Viewer"/></td></tr>
 </table>
 
 ## <a name=""></a> Your first transcript!
 
-All you need it a text editor. If you use a Mac, you can use TextEdit (under "Format" menu, select "Make Plain Text"); in MS Windows, you can use Notepad. I'm using [Atom Editor](https://atom.io/), and there are plenty of other open source options out there.
+All you need it a text editor. If you use a Mac, you can use TextEdit (under "Format" menu, select "Make Plain Text"), and if you use MS Windows, you can use Notepad. I'm using [Atom Editor](https://atom.io/), and there are plenty of other open source options out there.
 
 While knowledge of [JSON](https://www.json.org/) is a plus, no previous programming or web development experience is required.
 
 ### <a name=""></a> About JSON-LD
 
-Before we start, you might be aware that the Extended Transcript standard uses [JSON-LD](https://json-ld.org/). (It does!) You might have heard things about JSON-LD that make it sound technically or conceptually difficult, but no need to worry: except as indicated in this tutorial, you don't need to do anything special outside to support it. You can create and read extended transcripts without knowing anything about JSON-LD.
+Before we start, you might have heard that the Extended Transcript standard uses [JSON-LD](https://json-ld.org/). (It does!) You might have heard things about JSON-LD that make it sound technically or conceptually difficult, but no need to worry: except as indicated in this tutorial, you don't need to do anything special outside to support it. As long as you follow the outlined instructions, you can create and read extended transcripts without knowing anything about JSON-LD.
 
 Which is great, because if future you (or one of your consumers) does care about linked data, you'll be able to leverage its JSON-LD capabilities. And meanwhile, IMS already has plans that will leverage JSON-LD. (E.g., to enable verifiable transcripts using badge extensions.)
 
