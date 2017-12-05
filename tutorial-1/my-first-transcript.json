@@ -15,19 +15,64 @@
   "person": {
     "id": "urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
     "type": "Person",
-    "fullName": "Philip J. Fry",
-    "givenName": "Philip",
-    "familyName": "Fry",
-    "email": "pfry@example.org",
+    "fullName": "Amy Wong",
+    "givenName": "Amy",
+    "familyName": "Wong",
+    "email": "awong@example.org",
     "phone": "0000000000",
     "mobile": "0000000000",
-    "url": "http://example.org/pfry",
+    "url": "http://example.org/awong",
     "studentId": "123456789",
     "birthDate": "1974-08-14",
     "sourcedId": "0123456789"
   },
+  "records": [
+    {
+      "id": "urn:uuid:327de957-910c-4b8d-bdb4-2efc79ebc0e9",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "Mastered",
+      "recordOf": {
+        "id": "urn:uuid:ec7fdc47-5787-4992-b49c-d47f400dcee2",
+        "type": "TranscriptEntityLink",
+        "entityType": "Competency",
+        "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C"
+      }
+    },{
+      "id": "urn:uuid:ac10a029-05e7-4364-8521-97c3a4018388",
+      "type": "Record",
+      "date": "2017-11-01T00:00:00.000Z",
+      "result": "Mastered",
+      "recordOf": {
+        "id": "urn:uuid:c8d04637-c503-455a-b1d8-826f1e23eb7f",
+        "type": "TranscriptEntityLink",
+        "entityType": "Competency",
+        "entityId": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e"
+      }
+    }
+  ],
   "transcriptEntities": {
-    "id": "urn:uuid:9a065540-5fc8-4fed-9dc1-a28ad51e8ee8",
-    "type": "TranscriptEntitySet"
+    "id": "urn:uuid:98f56753-973d-4c2d-865a-f567c9896ed7",
+    "type": "TranscriptEntitySet",
+    "competencies": [
+      {
+        "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+        "type": "Competency",
+        "name": "Harnessing Planentary Rotational Energy"
+      },{
+        "id": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",
+        "type": "Competency",
+        "name": "Alternative Energy",
+        "associations": [
+          {
+            "id": "urn:uuid:7aade551-fbc8-44b5-8b96-036632858117",
+            "type": "Association",
+            "entityType": "Competency",
+            "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+            "associationType": "isParentOf"
+          }
+        ]
+      }
+    ]
   }
 }
