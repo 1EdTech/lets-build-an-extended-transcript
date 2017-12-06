@@ -1,22 +1,5 @@
 # Let's build an extended transcript!
 
-## Contents
-
-* [Overview](./tutorial.md#overview)
-    * [What's an extended transcript?](./tutorial.md#what-is-et)
-    * [In this tutorial](./tutorial.md#in-this-tutorial)
-* [Your first transcript!](./tutorial.md#first-transcript)
-    * [About JSON-LD](./tutorial.md#jsonld)
-    * [Minimal example](./tutorial.md#minimal-example)
-    * [Adding a competency](./tutorial.md#add-competency)
-    * [Adding another competency](./tutorial.md#add-another-competency)
-    * [Associating the competencies](./tutorial.md#associating-competencies)
-    * [Adding a degree program and a course](./tutorial.md#add-degree-course)
-    * [Specifying multiple parents](./tutorial.md#multiple-parents)
-* [Closing thoughts](./tutorial.md#closing-thoughts)
-* [Appendix](./tutorial.md#appendix)
-    * [Complete transcript](./tutorial.md#complete-transcript)
-
 ## <a id="overview"></a> Overview
 
 If you attended a postsecondary institution, you probably know what a transcript is: a document (often a PDF or sheet of paper) with a list of courses and associated credits and grades issued by the registrar at an educational institution. This document is usually available upon request by the learner and sent directly to third parties (other educational institutions or employers) in order to provide a verified summary of a learner's educational experience.
@@ -648,7 +631,7 @@ We didn't cover many details, including extensibility, verification, Open Badge 
 
 ## <a id="appendix"></a> Appendix
 
-### <a id="completed-transcript"></a> Completed transcript
+### <a id="complete-transcript"></a> Completed transcript
 
 ```json
 {
