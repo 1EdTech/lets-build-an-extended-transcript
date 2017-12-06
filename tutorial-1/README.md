@@ -2,23 +2,21 @@
 
 ## <a id="overview"></a> Overview
 
-If you attended a postsecondary institution, you probably know what a transcript is: a document (often a PDF or sheet of paper) with a list of courses and associated credits and grades issued by the registrar at an educational institution. This document is usually available upon request by the learner and sent directly to third parties (other educational institutions or employers) in order to provide a verified summary of a learner's educational experience.
-
-So, what's an extended transcript, and how is it different from a traditional transcript?
-
-### <a id="what-is-et"></a> What's an extended transcript?
+If you attended a postsecondary institution, you probably know what a transcript is: a document (usually physical) with a list of courses, associated credits and grades, along with a cumulative GPA and cumulative credit hours.
 
 While a transcript is useful for verifying a learner's educational background, it doesn't say much about the learner's journey. What material was covered in a given course? What assessments were used? What was the course's relationship to a program or degree? What skills did a learner demonstrate, and in what areas is the learner strong or still growing?
 
-The [IMS Extended Transcript](http://www.imsglobal.org/activity/extended-transcript) standard defines a data model and service for institutions to provide details about learner achievements. It provides additional granularity to traditional transcripts, offering institutions the ability to recognize achievements beyond course and degree completion.
+### <a id="what-is-et"></a> What's an extended transcript?
 
-The standard also supports (but doesn't presume) competency-based education (CBE). The data model includes competencies, each of which may have complex relationships with other competencies. A transcript can represent anything from a flat list of skills to a complex ontology of competencies with alignments to other competency standards, and the institution can express a range of proficiency levels and outcomes.
+The [IMS Extended Transcript](http://www.imsglobal.org/activity/extended-transcript) standard defines a data model and service for institutions to provide supplemental information to traditional transcripts, offering institutions the ability to recognize achievements beyond course and degree completion.
 
-Beyond the competency model, an extended transcript can include information about courses and degree programs, as well as assessments, certificates, and extracurriculars. Additionally, it provides a catch-all achievement type, and the data model is extensible. All of these types may have explicit relationships, and may even reference evidence.
+An extended transcript can include information about courses and degree programs, as well as assessments, certificates, and extracurriculars. Additionally, it provides a catch-all achievement type, and the data model is extensible.
+
+Additionally, the standard supports competency-based education (CBE). The data model includes competencies, each of which may have complex relationships with other competencies. A transcript can represent anything from a flat list of skills to a complex ontology of competencies with alignments to other competency standards, and the institution can express a range of proficiency levels and outcomes.
 
 The Extended Transcript standard supports interoperability with other IMS standards, such as Learning Information Systems (LIS) and the new Competencies & Academic Standards Exchange (CASE). An extended transcript can contain references to hosted badge assertions from the Open Badges standard. (Futhermore, the transcript itself can appear within a badge assertion in order to make the entire transcript verifiable!)
 
-Due to its rich data model and interoperability with other standards, the Extended Transcript standard has a lot of potential in terms of integrating systems. Transcript clients can fetch transcripts in order to show learners, employers, and advisors different views of learner progress and achievements. It can also be used by the learner to share a collection badges with a badge displayer, or it can be used by employers and educational partners to match learners with professional opportunities. One day, it could even be used by institutions to automatically recognize prior educational achievements.
+Due to its rich data model and interoperability with other standards, the Extended Transcript standard opens up many interesting integration possibilities. Transcript clients can fetch transcripts in order to show learners, employers, and advisors different views of learner progress and achievements. It can also be used by the learner to share a collection badges with a badge displayer, or it can be used by employers and educational partners to match learners with professional opportunities. One day, it could even be used by institutions to automatically recognize prior educational achievements!
 
 ### <a id="in-this-tutorial"></a> In this tutorial
 
@@ -27,40 +25,48 @@ We're going to learn about the transcript data model by building a transcript fr
 While you do so, I encourage you to review your transcript by uploading it to the [IMS Extended Transcript Viewer](http://projects.imsglobal.org/eT-viewer/). Before we get started, take a few minutes to look at the existing sample transcripts.
 
 <table class="image">
-<caption align="bottom">The [IMS Extended Transcript Viewer](http://projects.imsglobal.org/eT-viewer/). You can either upload an transcript or view one of the available samples.</caption>
-<tr><td><img src="images/1.png"  /></td></tr>
+<caption align="bottom">The IMS Extended Transcript Viewer. You can either upload an transcript or view one of the available samples.</caption>
+<tr><td><img src="images/1.png" /></td></tr>
 </table>
 
 <table class="image">
 <caption align="bottom">This is one of the predefined transcript samples. Madison is enrolled in a fictional institution, CBU, and has attended two computer science degree programs.</caption>
-<tr><td><img src="images/2.png"  /></td></tr>
+<tr><td><img src="images/2.png" /></td></tr>
 </table>
 
 Note that the Extended Transcript standard does not prescribe what a transcript looks like, or how a transcript viewer should behave. <a href="http://learningobjects.com/#/">Learning Objects</a> created this viewer for the IMS community to encourage adoption (and since then, other member institutions have contributed to the project), but other transcript viewers may look very different, perhaps omitting some types of data or displaying relationships differently.
 
 <table class="image">
-<caption align="bottom">Same transcript as above, but displayed in the Learning Objects transcript viewer. In this screenshot, the viewer is configured to only display  competencies.</caption>
-<tr><td><img src="images/3.png"  /></td></tr>
+<caption align="bottom">Same transcript as above, but displayed in the Learning Objects transcript viewer. In this screenshot, the viewer is configured to only display competencies.</caption>
+<tr><td><img src="images/3.png" /></td></tr>
 </table>
 
 <table class="image">
 <caption align="bottom">Same sample and viewer, but this time the viewer is configured to display courses. While the Extended Transcript standard provides a data model, it does not prescribe how a transcript should appear or what it must contain.</caption>
-<tr><td><img src="images/4.png"  /></td></tr>
+<tr><td><img src="images/4.png" /></td></tr>
 </table>
 
 ## <a id="first-transcript"></a> Your first transcript!
 
-To get started, all you need is a text editor. If you use a Mac, you can use TextEdit (under "Format" menu, select "Make Plain Text"), and if you use MS Windows, you can use Notepad. I'm using [Atom Editor](https://atom.io/), and there are plenty of other open source options out there.
+To get started, all you need is a text editor.
 
-Knowledge of [JSON](https://www.json.org/) will be helpful. However, you may be able to follow along. If you get stuck, jump the [complete transcript](#complete-transcript) in the appendix.
+If you use a Mac, you can use TextEdit (under "Format" menu, select "Make Plain Text"), and if you use MS Windows, you can use Notepad. I'm using [Atom Editor](https://atom.io/), and there are plenty of other cross-platform, open source options out there.
+
+Knowledge of [JSON](https://www.json.org/) will be helpful. However, you may be able to follow along regardless. If you get stuck, take a look at the [complete transcript](#complete-transcript) in the appendix.
+
+I've added technical asides for experienced developers, but they are not essential to the tutorial, so do not be concerned if they do not make sense to you.
+
+(*Hint*: while JSON is very forgiving about spaces, the standard is unforgiving about the presence and absence of commas. Look at examples carefully, and check for missing or superfluous commas.)
 
 ### <a id="jsonld"></a> About JSON-LD
 
-Before we start, you might have heard that the Extended Transcript standard uses [JSON-LD](https://json-ld.org/). (It does!)
+Before we start, you may have heard that the Extended Transcript standard uses [JSON-LD](https://json-ld.org/). (It does!)
 
-You might have heard things about JSON-LD that make it sound technically or conceptually difficult, but no need to worry: except where indicated in this tutorial, you don't need to do anything special to support it. As long as you follow the instructions below, you will be able to create and read extended transcripts without knowing anything about JSON-LD.
+You may also have heard things about JSON-LD that make it sound technically or conceptually difficult, but no need to worry: except where indicated in this tutorial, you don't need to do anything special to support it.
 
-Which is great, because if you or your consumers care about linked data in the future, you'll be able to leverage its JSON-LD capabilities.
+> *Technical aside*: JSON-LD is JSON. If you follow the instructions below, working with the Extended Transcript data model will be similar to working with any other JSON format.
+
+This is great news, because if you or your consumers care about linked data in the future, you'll be able to leverage its JSON-LD capabilities!
 
 ### <a id="minimal-example"></a> Minimal example
 
@@ -95,11 +101,13 @@ Add the following to the file and save it:
 }
 ```
 
+> *Technical aside*: the `records` property is actually not required, while everything else included above is. However, as you will see, `records` will appear in practically every transcript, and including it here will make the following snippets easier to follow.
+
 Go ahead an upload it to the [IMS Extended Transcript Viewer](http://projects.imsglobal.org/eT-viewer/). You should see this:
 
 <table class="image">
 <caption align="bottom">Our minimal extended transcript.</caption>
-<tr><td><img src="images/5.png"  /></td></tr>
+<tr><td><img src="images/5.png" /></td></tr>
 </table>
 
 Let's break this down. Here's what the transcript is telling us:
@@ -110,37 +118,26 @@ Let's break this down. Here's what the transcript is telling us:
 What about the other data?
 
 ```
-{
-  "@context": "https://purl.imsglobal.org/ctx/extended-transcript/v1p0",
-  ...
-}
+"@context": "https://purl.imsglobal.org/ctx/extended-transcript/v1p0",
 ```
 
-Tells us that this document should conform to Extended Transcript version 1.0 standard.
+This tells us that this document should conform to Extended Transcript version 1.0 standard.
 
 ```
-{
-  ...
-  "id": "urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
-  ...
-}
+"id": "urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
 ```
 
-Gives the transcript an identifier. While you may not need this value, a consumer might. Regardless, you need to include it.
+This assigns an identifier to the transcript. While you may not need this value, a consumer might. Regardless, you must include it.
 
-Pay attention as we evolve this transcript; almost everything will contain an `id`, and we will frequently used these values to establish relationships. The value in `id` must be unique for every "thing".
+Pay attention as we evolve this transcript; almost everything will contain an `id`, and we will frequently use these values to establish associations between different entities. Note that the value in `id` must be unique for every "thing".
 
-You may wonder: why is the ID so long? We're using [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs). Without getting into the weeds, it is better to use data URLs for JSON-LD interoperability, but you can get by using simpler identifiers (e.g., `"1"`, `"2"`, etc) for purposes of this tutorial.
+You may wonder: why is the ID so long? We're using [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs). Without getting into the weeds, it is better to use data URLs for JSON-LD interoperability, but feel free to use simpler identifiers (e.g., `"1"`, `"2"`, etc) to get started. (The IMS Extended Transcript viewer will still understand your transcripts.)
 
 ```
-{
-  ...
-  "type": "ExtendedTranscript",
-  ...
-}
+"type": "ExtendedTranscript",
 ```
 
-Declares that the object is a transcript.
+This declares that the object is a transcript. Like `id`, you will see that almost everything has a `type` declaration.
 
 > *Technical aside*: the entire data model is monomorphic, in the sense that the type of data appearing anywhere in the document is always predictable without referencing a `type` value. However, we include the `type` property because it is required by JSON-LD. It also enables better error messaging and makes the JSON document more human readable.
 
@@ -150,33 +147,35 @@ Go ahead and try adding some more fields to your user and issuer:
 {
   ...
   "issuer": {
-    "id": "urn:uuid:618374e0-e761-4ccb-813a-db66e1d08310",
-    "type": "Issuer",
-    "name": "Mars University",
-    "url": "http://example.org/mars-u",
-    "address": "123 E St NW, Washington, DC 20004",
-    "phone": "0000000000",
-    "issuingPersonFullName": "Inez Wong"
+      "id": "urn:uuid:618374e0-e761-4ccb-813a-db66e1d08310",
+      "type": "Issuer",
+      "name": "Mars University",
+      "url": "http://example.org/mars-u",
+      "address": "123 E St NW, Washington, DC 20004",
+      "phone": "0000000000",
+      "issuingPersonFullName": "Inez Wong"
   },
   "person": {
-    "id": "urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
-    "type": "Person",
-    "fullName": "Amy Wong",
-    "givenName": "Amy",
-    "familyName": "Wong",
-    "email": "awong@example.org",
-    "phone": "0000000000",
-    "mobile": "0000000000",
-    "url": "http://example.org/awong",
-    "studentId": "123456789",
-    "birthDate": "1974-08-14",
-    "sourcedId": "0123456789"
+      "id": "urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
+      "type": "Person",
+      "fullName": "Amy Wong",
+      "givenName": "Amy",
+      "familyName": "Wong",
+      "email": "awong@example.org",
+      "phone": "0000000000",
+      "mobile": "0000000000",
+      "url": "http://example.org/awong",
+      "studentId": "123456789",
+      "birthDate": "1974-08-14",
+      "sourcedId": "0123456789"
   },
   ...
 }
 ```
 
-As a bonus, try adding a `logo` to issuer. (*Hint*: look at the examples in the IMS Extended Transcript Viewer; you can access their source via the "Source" link after selecting the transcript.)
+(*Note*: do not include the "..." above. I'll use ellipsis to skip over long, repetitive content throughout the tutorial. Just replace the content between the ellipsis.)
+
+As a bonus, try adding a `logo` to issuer. (*Hint*: look at the examples in the IMS Extended Transcript Viewer; after select a transcript, you can access its source via the "Source" link.)
 
 ### <a id="add-competency"></a> Adding a competency
 
@@ -292,7 +291,7 @@ So here's what we have so far:
       }
     }
   ],
-  "transcriptEntities": {
+ "transcriptEntities": {
     "id": "urn:uuid:98f56753-973d-4c2d-865a-f567c9896ed7",
     "type": "TranscriptEntitySet",
     "competencies": [
@@ -310,7 +309,7 @@ You should see something this:
 
 <table class="image">
 <caption align="bottom">Our transcript should now have one competency in it.</caption>
-<tr><td><img src="images/6.png"  /></td></tr>
+<tr><td><img src="images/6.png" /></td></tr>
 </table>
 
 What if Amy is still working on this competency? This this:
@@ -320,21 +319,21 @@ What if Amy is still working on this competency? This this:
   ...
   "records": [
     {
-      "id": "urn:uuid:327de957-910c-4b8d-bdb4-2efc79ebc0e9",
-      "type": "Record",
-      "date": "2017-11-01T00:00:00.000Z",
-      "result": "In Progress",
-      "recordOf": {
+     "id": "urn:uuid:327de957-910c-4b8d-bdb4-2efc79ebc0e9",
+     "type": "Record",
+     "date": "2017-11-01T00:00:00.000Z",
+     "result": "In Progress",
+     "recordOf": {
         "id": "urn:uuid:ec7fdc47-5787-4992-b49c-d47f400dcee2",
         "type": "TranscriptEntityLink",
         "entityType": "Competency",
         "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C"
-      },
-      "status": {
+     },
+     "status": {
         "id": "urn:uuid:D4ACF5F3-3627-4739-911F-A61D252D1EC0",
         "type": "RecordStatus",
         "completed": false
-      }
+     }
     }
   ],
   ...
@@ -414,7 +413,7 @@ We have one more step, but before we proceed, save your changes and upload the t
 
 <table class="image">
 <caption align="bottom">Our transcript should now have two unrelated competencies.</caption>
-<tr><td><img src="images/7.png"  /></td></tr>
+<tr><td><img src="images/7.png" /></td></tr>
 </table>
 
 ### <a id="associating-competencies"></a> Associating the competencies
@@ -423,7 +422,7 @@ Third, let's declare that "Alternative Energy" is the parent of "Harnessing Plan
 
 ```
 {
-  ...,
+  ...
   "transcriptEntities": {
     "id": "urn:uuid:98f56753-973d-4c2d-865a-f567c9896ed7",
     "type": "TranscriptEntitySet",
@@ -459,7 +458,7 @@ Save the changes and upload it to the viewer.
 
 <table class="image">
 <caption align="bottom">The competencies are now associated via a parent-child association.</caption>
-<tr><td><img src="images/8.png"  /></td></tr>
+<tr><td><img src="images/8.png" /></td></tr>
 </table>
 
 Alternatively, we could have declared that "Harnessing Planentary Rotational Energy" is the child of "Alternative Energy" using the `"isChildOf"` type. Can you figure out how?
@@ -480,7 +479,7 @@ Let's define the transcript entities first:
 
 ```
 {
-  ...,
+  ...
   "transcriptEntities": {
     "competencies": [
       ...
@@ -543,11 +542,11 @@ Next, let's add records for both of the new entities:
         "completed": false
       }
     },{
-      "id": "urn:uuid:630e3899-ed94-4c2d-be74-2f6d24f31774",
-      "type": "Record",
-      "date": "2017-11-01T00:00:00.000Z",
-      "result": "A-",
-      "recordOf": {
+     "id": "urn:uuid:630e3899-ed94-4c2d-be74-2f6d24f31774",
+     "type": "Record",
+     "date": "2017-11-01T00:00:00.000Z",
+     "result": "A-",
+     "recordOf": {
         "id": "urn:uuid:9b058f5b-c807-478b-aa6c-394c7d3c1f57",
         "type": "TranscriptEntityLink",
         "entityType": "Course",
@@ -565,7 +564,7 @@ If you load your transcript in the viewer, you should see this:
 
 <table class="image">
 <caption align="bottom">The transcript now includes two competencies, a course, and a degree program.</caption>
-<tr><td><img src="images/9.png"  /></td></tr>
+<tr><td><img src="images/9.png" /></td></tr>
 </table>
 
 ### <a id="multiple-parents"></a> Specifying multiple parents
@@ -578,10 +577,10 @@ Let's update the definition of the course to achieve this:
 
 ```
 {
-  ...,
+  ...
   "transcriptEntities": {
     "competencies": [
-      ...
+     ...
     ],
     "courses": [
       {
@@ -592,11 +591,11 @@ Let's update the definition of the course to achieve this:
       },
       "associations": [
         {
-          "id": "urn:uuid:ca8193b0-0ee5-487c-a8f8-ea4b839aab58",
-          "type": "Association",
-          "entityType": "Competency",
-          "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
-          "associationType": "isParentOf"
+         "id": "urn:uuid:ca8193b0-0ee5-487c-a8f8-ea4b839aab58",
+         "type": "Association",
+         "entityType": "Competency",
+         "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+         "associationType": "isParentOf"
         }
       ]
     ],
@@ -611,7 +610,7 @@ If you load your transcript in the viewer, you should see this:
 
 <table class="image">
 <caption align="bottom">"Harnessing Planentary Rotational Energy" now has two parents.</caption>
-<tr><td><img src="images/10.png"  /></td></tr>
+<tr><td><img src="images/10.png" /></td></tr>
 </table>
 
 > *Technical aside*: the transcript entities are a collection of directed (potentially cyclical) graphs, and are not guaranteed to form trees.
@@ -635,143 +634,146 @@ We didn't cover many details, including extensibility, verification, Open Badge 
 
 ```json
 {
-  "@context": "https://purl.imsglobal.org/ctx/extended-transcript/v1p0",
-  "id": "urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
-  "type": "ExtendedTranscript",
-  "createdAt": "2017-04-25T00:00:00.00Z",
-  "issuer": {
-    "id": "urn:uuid:618374e0-e761-4ccb-813a-db66e1d08310",
-    "type": "Issuer",
-    "name": "Mars University",
-    "url": "http://example.org/mars-u",
-    "address": "123 E St NW, Washington, DC 20004",
-    "phone": "0000000000",
-    "issuingPersonFullName": "Inez Wong"
+  "@context":"https://purl.imsglobal.org/ctx/extended-transcript/v1p0",
+  "id":"urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
+  "type":"ExtendedTranscript",
+  "createdAt":"2017-04-25T00:00:00.00Z",
+  "issuer":{
+    "id":"urn:uuid:618374e0-e761-4ccb-813a-db66e1d08310",
+    "type":"Issuer",
+    "name":"Mars University",
+    "url":"http://example.org/mars-u",
+    "address":"123 E St NW, Washington, DC 20004",
+    "phone":"0000000000",
+    "issuingPersonFullName":"Inez Wong"
   },
-  "person": {
-    "id": "urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
-    "type": "Person",
-    "fullName": "Amy Wong",
-    "givenName": "Amy",
-    "familyName": "Wong",
-    "email": "awong@example.org",
-    "phone": "0000000000",
-    "mobile": "0000000000",
-    "url": "http://example.org/awong",
-    "studentId": "123456789",
-    "birthDate": "1974-08-14",
-    "sourcedId": "0123456789"
+  "person":{
+    "id":"urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
+    "type":"Person",
+    "fullName":"Amy Wong",
+    "givenName":"Amy",
+    "familyName":"Wong",
+    "email":"awong@example.org",
+    "phone":"0000000000",
+    "mobile":"0000000000",
+    "url":"http://example.org/awong",
+    "studentId":"123456789",
+    "birthDate":"1974-08-14",
+    "sourcedId":"0123456789"
   },
-  "records": [
+  "records":[
     {
-      "id": "urn:uuid:327de957-910c-4b8d-bdb4-2efc79ebc0e9",
-      "type": "Record",
-      "date": "2017-11-01T00:00:00.000Z",
-      "result": "Mastered",
-      "recordOf": {
-        "id": "urn:uuid:ec7fdc47-5787-4992-b49c-d47f400dcee2",
-        "type": "TranscriptEntityLink",
-        "entityType": "Competency",
-        "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C"
+      "id":"urn:uuid:327de957-910c-4b8d-bdb4-2efc79ebc0e9",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"Mastered",
+      "recordOf":{
+        "id":"urn:uuid:ec7fdc47-5787-4992-b49c-d47f400dcee2",
+        "type":"TranscriptEntityLink",
+        "entityType":"Competency",
+        "entityId":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C"
       }
-    },{
-      "id": "urn:uuid:ac10a029-05e7-4364-8521-97c3a4018388",
-      "type": "Record",
-      "date": "2017-11-01T00:00:00.000Z",
-      "result": "Mastered",
-      "recordOf": {
-        "id": "urn:uuid:c8d04637-c503-455a-b1d8-826f1e23eb7f",
-        "type": "TranscriptEntityLink",
-        "entityType": "Competency",
-        "entityId": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e"
+    },
+    {
+      "id":"urn:uuid:ac10a029-05e7-4364-8521-97c3a4018388",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"Mastered",
+      "recordOf":{
+        "id":"urn:uuid:c8d04637-c503-455a-b1d8-826f1e23eb7f",
+        "type":"TranscriptEntityLink",
+        "entityType":"Competency",
+        "entityId":"urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e"
       }
-    },{
-      "id": "urn:uuid:304abbae-6c2c-41af-b425-c5d7ce26bcdc",
-      "type": "Record",
-      "date": "2017-11-01T00:00:00.000Z",
-      "result": "In Progress",
-      "recordOf": {
-        "id": "urn:uuid:227263e6-0798-43bc-bb45-efa21311d964",
-        "type": "TranscriptEntityLink",
-        "entityType": "Degree",
-        "entityId": "urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1"
+    },
+    {
+      "id":"urn:uuid:304abbae-6c2c-41af-b425-c5d7ce26bcdc",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"In Progress",
+      "recordOf":{
+        "id":"urn:uuid:227263e6-0798-43bc-bb45-efa21311d964",
+        "type":"TranscriptEntityLink",
+        "entityType":"Degree",
+        "entityId":"urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1"
       },
-      "status": {
-        "id": "urn:uuid:1ec6e8e0-7772-4721-aacd-5120b8da6478",
-        "type": "RecordStatus",
-        "completed": false
+      "status":{
+        "id":"urn:uuid:1ec6e8e0-7772-4721-aacd-5120b8da6478",
+        "type":"RecordStatus",
+        "completed":false
       }
-    },{
-      "id": "urn:uuid:630e3899-ed94-4c2d-be74-2f6d24f31774",
-      "type": "Record",
-      "date": "2017-11-01T00:00:00.000Z",
-      "result": "A-",
-      "recordOf": {
-        "id": "urn:uuid:9b058f5b-c807-478b-aa6c-394c7d3c1f57",
-        "type": "TranscriptEntityLink",
-        "entityType": "Course",
-        "entityId": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1"
+    },
+    {
+      "id":"urn:uuid:630e3899-ed94-4c2d-be74-2f6d24f31774",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"A-",
+      "recordOf":{
+        "id":"urn:uuid:9b058f5b-c807-478b-aa6c-394c7d3c1f57",
+        "type":"TranscriptEntityLink",
+        "entityType":"Course",
+        "entityId":"urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1"
       }
     }
   ],
-  "transcriptEntities": {
-    "id": "urn:uuid:98f56753-973d-4c2d-865a-f567c9896ed7",
-    "type": "TranscriptEntitySet",
-    "competencies": [
+  "transcriptEntities":{
+    "id":"urn:uuid:98f56753-973d-4c2d-865a-f567c9896ed7",
+    "type":"TranscriptEntitySet",
+    "competencies":[
       {
-        "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
-        "type": "Competency",
-        "name": "Harnessing Planentary Rotational Energy"
-      },{
-        "id": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",
-        "type": "Competency",
-        "name": "Alternative Energy",
-        "associations": [
+        "id":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+        "type":"Competency",
+        "name":"Harnessing Planentary Rotational Energy"
+      },
+      {
+        "id":"urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",
+        "type":"Competency",
+        "name":"Alternative Energy",
+        "associations":[
           {
-            "id": "urn:uuid:7aade551-fbc8-44b5-8b96-036632858117",
-            "type": "Association",
-            "entityType": "Competency",
-            "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
-            "associationType": "isParentOf"
+            "id":"urn:uuid:7aade551-fbc8-44b5-8b96-036632858117",
+            "type":"Association",
+            "entityType":"Competency",
+            "entityId":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+            "associationType":"isParentOf"
           }
         ]
       }
     ],
-    "courses": [
+    "courses":[
       {
-        "id": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
-        "type": "Course",
-        "name": "Alternative Energies",
-        "courseCode": "PHY652",
-        "associations": [
+        "id":"urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+        "type":"Course",
+        "name":"Alternative Energies",
+        "courseCode":"PHY652",
+        "associations":[
           {
-            "id": "urn:uuid:ca8193b0-0ee5-487c-a8f8-ea4b839aab58",
-            "type": "Association",
-            "entityType": "Competency",
-            "entityId": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
-            "associationType": "isParentOf"
+            "id":"urn:uuid:ca8193b0-0ee5-487c-a8f8-ea4b839aab58",
+            "type":"Association",
+            "entityType":"Competency",
+            "entityId":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+            "associationType":"isParentOf"
           }
         ]
       }
     ],
-    "degrees": [
+    "degrees":[
       {
-        "id": "urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1",
-        "type": "Degree",
-        "name": "Applied Physics",
-        "level": "Doctorate",
-        "associations": [
+        "id":"urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1",
+        "type":"Degree",
+        "name":"Applied Physics",
+        "level":"Doctorate",
+        "associations":[
           {
-            "id": "urn:uuid:e4ca862f-a322-4f9e-9222-6d8ce17582c5",
-            "type": "Association",
-            "entityType": "Course",
-            "entityId": "urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
-            "associationType": "isParentOf"
+            "id":"urn:uuid:e4ca862f-a322-4f9e-9222-6d8ce17582c5",
+            "type":"Association",
+            "entityType":"Course",
+            "entityId":"urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+            "associationType":"isParentOf"
           }
         ]
       }
     ]
   }
 }
-
 ```

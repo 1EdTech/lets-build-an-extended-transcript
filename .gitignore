@@ -2,3 +2,5 @@
 *.pdf
 _book
 node_modules
+*.zip
+build-web/
