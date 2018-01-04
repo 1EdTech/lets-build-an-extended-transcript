@@ -1,5 +1,7 @@
 # Let's build an extended transcript!
 
+Bryan Smith, [Learning Objects](http://learningobjects.com)
+
 ## <a id="overview"></a> Overview
 
 If you attended a postsecondary institution, you probably know what a transcript is: a document (usually physical) with a list of courses, associated credits and grades, along with a cumulative GPA and cumulative credit hours.
@@ -14,23 +16,23 @@ An extended transcript can include information about courses and degree programs
 
 Additionally, the standard supports competency-based education (CBE). The data model includes competencies, each of which may have complex relationships with other competencies. A transcript can represent anything from a flat list of skills to a complex ontology of competencies with alignments to other competency standards, and the institution can express a range of proficiency levels and outcomes.
 
-The Extended Transcript standard supports interoperability with other IMS standards, such as Learning Information Systems (LIS) and the new Competencies & Academic Standards Exchange (CASE). An extended transcript can contain references to hosted badge assertions from the Open Badges standard. (Futhermore, the transcript itself can appear within a badge assertion in order to make the entire transcript verifiable!)
+The Extended Transcript standard supports interoperability with other IMS standards, such as Learner Information Systems (LIS) and the new Competencies & Academic Standards Exchange (CASE). An extended transcript can contain references to hosted badge assertions from the Open Badges standard. (Furthermore, the transcript itself can appear within a badge assertion in order to make the entire transcript verifiable.)
 
-Due to its rich data model and interoperability with other standards, the Extended Transcript standard opens up many interesting integration possibilities. Transcript clients can fetch transcripts in order to show learners, employers, and advisors different views of learner progress and achievements. It can also be used by the learner to share a collection badges with a badge displayer, or it can be used by employers and educational partners to match learners with professional opportunities. One day, it could even be used by institutions to automatically recognize prior educational achievements!
+Due to its rich data model and interoperability with other standards, the Extended Transcript standard opens up many interesting integration possibilities. Transcript clients can fetch transcripts in order to show learners, employers, and advisors different views of learner progress and achievements. It can also be used by the learner to share a collection badges with a badge displayer, or it can be used by employers and educational partners to match learners with professional opportunities. One day, it could even be used by institutions to automatically recognize prior educational achievements.
 
 ### <a id="in-this-tutorial"></a> In this tutorial
 
-We're going to learn about the transcript data model by building a transcript from scratch!
+We're going to learn about the transcript data model by building a transcript from scratch.
 
 While you do so, I encourage you to review your transcript by uploading it to the [IMS Extended Transcript Viewer](http://projects.imsglobal.org/eT-viewer/). Before we get started, take a few minutes to look at the existing sample transcripts.
 
 <table class="image">
-<caption align="bottom">The IMS Extended Transcript Viewer. You can either upload an transcript or view one of the available samples.</caption>
+<caption align="bottom">The IMS Extended Transcript Viewer. You can either upload a transcript or view one of the available samples.</caption>
 <tr><td><img src="images/1.png" /></td></tr>
 </table>
 
 <table class="image">
-<caption align="bottom">This is one of the predefined transcript samples. Madison is enrolled in a fictional institution, CBU, and has attended two computer science degree programs.</caption>
+<caption align="bottom">This is one of the predefined transcript samples. Madison is enrolled in a fictional institution, CBU, and has been enrolled in two computer science degree programs.</caption>
 <tr><td><img src="images/2.png" /></td></tr>
 </table>
 
@@ -42,7 +44,7 @@ Note that the Extended Transcript standard does not prescribe what a transcript 
 </table>
 
 <table class="image">
-<caption align="bottom">Same sample and viewer, but this time the viewer is configured to display courses. While the Extended Transcript standard provides a data model, it does not prescribe how a transcript should appear or what it must contain.</caption>
+<caption align="bottom">Same sample and viewer, but this time the viewer is configured to display courses. While the Extended Transcript standard provides a data model, it does not prescribe how a transcript should appear or what it must contain beyond basic required information.</caption>
 <tr><td><img src="images/4.png" /></td></tr>
 </table>
 
@@ -52,7 +54,7 @@ To get started, all you need is a text editor.
 
 If you use a Mac, you can use TextEdit (under "Format" menu, select "Make Plain Text"), and if you use MS Windows, you can use Notepad. I'm using [Atom Editor](https://atom.io/), and there are plenty of other cross-platform, open source options out there.
 
-Knowledge of [JSON](https://www.json.org/) will be helpful. However, you may be able to follow along regardless. If you get stuck, take a look at the [complete transcript](#complete-transcript) in the appendix.
+Knowledge of [JSON](https://www.json.org/) will be helpful, but you should able to follow along regardless. If you get stuck, take a look at the [complete transcript](#complete-transcript) in the appendix.
 
 I've added technical asides for experienced developers, but they are not essential to the tutorial, so do not be concerned if they do not make sense to you.
 
@@ -66,7 +68,7 @@ You may also have heard things about JSON-LD that make it sound technically or c
 
 > *Technical aside*: JSON-LD is JSON. If you follow the instructions below, working with the Extended Transcript data model will be similar to working with any other JSON format.
 
-This is great news, because if you or your consumers care about linked data in the future, you'll be able to leverage its JSON-LD capabilities!
+This is great news, because if you or your stakeholders care about linked data in the future, you'll be able to leverage its JSON-LD capabilities!
 
 ### <a id="minimal-example"></a> Minimal example
 
@@ -127,11 +129,11 @@ This tells us that this document should conform to Extended Transcript version 1
 "id": "urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
 ```
 
-This assigns an identifier to the transcript. While you may not need this value, a consumer might. Regardless, you must include it.
+This assigns an identifier to the transcript. While you may not need this value, the system consuming your transcript might. Regardless, you must include it.
 
-Pay attention as we evolve this transcript; almost everything will contain an `id`, and we will frequently use these values to establish associations between different entities. Note that the value in `id` must be unique for every "thing".
+Pay attention as we build out this transcript; almost everything will contain an `id`, and we will frequently use these values to establish associations between different entities in the transcript. Note that the value in `id` must be unique for every "thing".
 
-You may wonder: why is the ID so long? We're using [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs). Without getting into the weeds, it is better to use data URLs for JSON-LD interoperability, but feel free to use simpler identifiers (e.g., `"1"`, `"2"`, etc) to get started. (The IMS Extended Transcript viewer will still understand your transcripts.)
+You may wonder: why is the ID so long? We're using [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs). Without getting into the weeds, it is better to use data URLs for JSON-LD interoperability, but feel free to use simpler identifiers (e.g., `"1"`, `"2"`, etc) to get started. (The IMS Extended Transcript viewer will still understand your transcripts with simpler identifiers.)
 
 ```
 "type": "ExtendedTranscript",
@@ -139,7 +141,7 @@ You may wonder: why is the ID so long? We're using [data URLs](https://developer
 
 This declares that the object is a transcript. Like `id`, you will see that almost everything has a `type` declaration.
 
-> *Technical aside*: the entire data model is monomorphic, in the sense that the type of data appearing anywhere in the document is always predictable without referencing a `type` value. However, we include the `type` property because it is required by JSON-LD. It also enables better error messaging and makes the JSON document more human readable.
+> *Technical aside*: the entire data model is monomorphic, in the sense that the type of data appearing anywhere in the document is always predictable without referencing a `type` value. However, we include the `type` property because it is required by JSON-LD. It also enables better error messaging and makes the JSON document more humanly readable.
 
 Go ahead and try adding some more fields to your user and issuer:
 
@@ -175,7 +177,7 @@ Go ahead and try adding some more fields to your user and issuer:
 
 (*Note*: do not include the "..." above. I'll use ellipsis to skip over long, repetitive content throughout the tutorial. Just replace the content between the ellipsis.)
 
-As a bonus, try adding a `logo` to issuer. (*Hint*: look at the examples in the IMS Extended Transcript Viewer; after select a transcript, you can access its source via the "Source" link.)
+As a bonus, try adding a `logo` to issuer. (*Hint*: look at the examples in the IMS Extended Transcript Viewer; after you select a transcript, you can access its source via the "Source" link.)
 
 ### <a id="add-competency"></a> Adding a competency
 
@@ -191,7 +193,7 @@ Let's add a competency to our transcript:
       {
         "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
         "type": "Competency",
-        "name": "Harnessing Planentary Rotational Energy"
+        "name": "Harnessing Planetary Rotational Energy"
       }
     ]
   }
@@ -202,7 +204,7 @@ After saving your changes, go ahead and upload it to the viewer. What do you see
 
 Interesting, nothing changed. Where's the competency?
 
-In the Extended Transcript Standard, there's a distinction between transcript entities and records. What we just accomplished is describing that there is a competency, "Harnessing Planentary Rotational Energy"; however, we didn't declare anything about whether the learner achieved mastery of this competency.
+In the Extended Transcript Standard, there's a distinction between transcript entities and records. What we just accomplished is describing that there is a competency, "Harnessing Planetary Rotational Energy"; however, we didn't declare anything about whether the learner achieved mastery of this competency.
 
 Let's change that:
 
@@ -230,7 +232,7 @@ Let's change that:
       {
         "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
         "type": "Competency",
-        "name": "Harnessing Planentary Rotational Energy"
+        "name": "Harnessing Planetary Rotational Energy"
       }
     ]
   }
@@ -298,7 +300,7 @@ So here's what we have so far:
       {
         "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
         "type": "Competency",
-        "name": "Harnessing Planentary Rotational Energy"
+        "name": "Harnessing Planetary Rotational Energy"
       }
     ]
   }
@@ -308,11 +310,11 @@ So here's what we have so far:
 You should see something this:
 
 <table class="image">
-<caption align="bottom">Our transcript should now have one competency in it.</caption>
+<caption align="bottom">Our transcript should now have one competency record in it.</caption>
 <tr><td><img src="images/6.png" /></td></tr>
 </table>
 
-What if Amy is still working on this competency? This this:
+What if Amy is still working on this competency? Try this:
 
 ```
 {
@@ -342,12 +344,12 @@ What if Amy is still working on this competency? This this:
 
 ### <a id="add-another-competency"></a> Adding another competency
 
-Say "Harnessing Planentary Rotational Energy" is part of a higher level competency, "Alternative Energy".
+Say "Harnessing Planetary Rotational Energy" is part of a higher level competency, "Alternative Energy".
 
 To express this in the transcript, we're going to need to:
-1. Add the new transcript entity
+1. Add the new transcript entity for the second competency
 2. Add the record for the learner
-3. Somehow associate the two competencies
+3. Associate the two competencies
 
 First, let's add the transcript entity:
 
@@ -361,7 +363,7 @@ First, let's add the transcript entity:
       {
         "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
         "type": "Competency",
-        "name": "Harnessing Planentary Rotational Energy"
+        "name": "Harnessing Planetary Rotational Energy"
       },{
         "id": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",
         "type": "Competency",
@@ -409,16 +411,16 @@ Second, let's add another record:
 }
 ```
 
-We have one more step, but before we proceed, save your changes and upload the transcript to the IMS Extended Transcript Viewer. You should see two unrelated competencies.
+We have one more step, but before we proceed, save your changes and upload the transcript to the IMS Extended Transcript Viewer. You should see two unrelated competency records.
 
 <table class="image">
-<caption align="bottom">Our transcript should now have two unrelated competencies.</caption>
+<caption align="bottom">Our transcript should now have two unrelated competency records.</caption>
 <tr><td><img src="images/7.png" /></td></tr>
 </table>
 
 ### <a id="associating-competencies"></a> Associating the competencies
 
-Third, let's declare that "Alternative Energy" is the parent of "Harnessing Planentary Rotational Energy":
+Third, let's declare that "Alternative Energy" is the parent of "Harnessing Planetary Rotational Energy":
 
 ```
 {
@@ -430,7 +432,7 @@ Third, let's declare that "Alternative Energy" is the parent of "Harnessing Plan
       {
         "id": "urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
         "type": "Competency",
-        "name": "Harnessing Planentary Rotational Energy"
+        "name": "Harnessing Planetary Rotational Energy"
       },{
         "id": "urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",
         "type": "Competency",
@@ -461,17 +463,17 @@ Save the changes and upload it to the viewer.
 <tr><td><img src="images/8.png" /></td></tr>
 </table>
 
-Alternatively, we could have declared that "Harnessing Planentary Rotational Energy" is the child of "Alternative Energy" using the `"isChildOf"` type. Can you figure out how?
+Alternatively, we could have declared that "Harnessing Planetary Rotational Energy" is the child of "Alternative Energy" using the `"isChildOf"` type. Can you figure out how?
 
-There are a total of ten available association types, though you will probably mostly use `"isParentOf"` or `"isChildOf"`. The standard is very flexible: any transcript entity may have any association with any association type with any other transcript entities. But of course, the provider is responsible for generating sensible transcripts.
+There are a total of ten available association types, though you will probably mostly use `"isParentOf"` or `"isChildOf"`. The standard is very flexible: any transcript entity may have any association with any association type with any other transcript entities. But of course, the provider is responsible for generating transcripts where these associations make sense to the people using the transcripts and the systems interpreting them.
 
-> *Technical aside*: For more discussion on what is sensible, see the section on [Cycles and Paradoxes](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-Bestpractices/etservicev1p0_bestpracticesv1p0.html#cycles-and-paradoxes) in the Recommended Practices guide.
+> *Technical aside*: For more discussion on what is sensible, see the section on [Cycles and Paradoxes](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-Bestpractices/etservicev1p0_bestpracticesv1p0.html#cycles-and-paradoxes) in the Extended Transcript Recommended Practices guide.
 
-To learn more about available associations, see the [AssocationType Vocabulary Description](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-InformationModel/ETServiceGroup_InfoModel.html#Enumerated_AssociationType) section within the Information Model documentation.
+To learn more about available associations, see the [AssocationType Vocabulary Description](https://www.imsglobal.org/sites/default/files/ExtendedTranscript/etv1p0candidatefinal/ET-InformationModel/ETServiceGroup_InfoModel.html#Enumerated_AssociationType) section within the Extended Transcript Information Model documentation.
 
 ### <a id="add-degree-course"></a> Adding a degree program and a course
 
-Let's wrap up this tutorial by adding a couple new transcript entity types.
+Let's wrap up this tutorial by adding a couple of new transcript entity types.
 
 Amy is working on her PhD in Applied Physics, and she took a course in alternative energies.
 
@@ -609,7 +611,7 @@ Let's update the definition of the course to achieve this:
 If you load your transcript in the viewer, you should see this:
 
 <table class="image">
-<caption align="bottom">"Harnessing Planentary Rotational Energy" now has two parents.</caption>
+<caption align="bottom">"Harnessing Planetary Rotational Energy" now has two parents.</caption>
 <tr><td><img src="images/10.png" /></td></tr>
 </table>
 
@@ -621,12 +623,16 @@ I hope this tutorial has provided a useful introduction to the Extended Transcri
 
 In summary, in order to create an extended transcript, you must specify:
 * the issuer (the educational institution) and person (the learner)
-* transcript entities to describe the potential experiences
-* records to describe the learner's experience with the transcript entities
+* transcript entities to describe the potential educational activities
+* records to describe the learner's experience and/or results with the transcript entities
 
-As we saw earlier in the tutorial, there need not be a record for every entity, and it is also possible to express records for incomplete experiences.
+As we saw earlier in the tutorial, there need not be a record for every entity, and it is also possible to create records for incomplete experiences.
 
-We didn't cover many details, including extensibility, verification, Open Badge capabilities, and alignment with other standards. For a deeper dive, take a look at the [IMS Extended Transcript](http://www.imsglobal.org/activity/extended-transcript) page, and look at the sample transcripts in the IMS Transcript Viewer.
+We didn't cover many details, including extensibility, verification, Open Badge capabilities, and alignment with other standards. For a deeper dive, take a look at the [IMS Extended Transcript](http://www.imsglobal.org/activity/extended-transcript) page, the sample transcripts in the IMS Transcript Viewer, and the Recommended Practices and Implementation Guide.
+
+## <a id="author"></a> About the author
+
+Bryan Smith is a Software Engineering Manager at [Learning Objects](http://learningobjects.com), and an active member of the IMS Extended Transcript workgroup.
 
 ## <a id="appendix"></a> Appendix
 
@@ -723,7 +729,7 @@ We didn't cover many details, including extensibility, verification, Open Badge 
       {
         "id":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
         "type":"Competency",
-        "name":"Harnessing Planentary Rotational Energy"
+        "name":"Harnessing Planetary Rotational Energy"
       },
       {
         "id":"urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",

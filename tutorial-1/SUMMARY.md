@@ -14,5 +14,6 @@
     * [Adding a degree program and a course](README.md#add-degree-course)
     * [Specifying multiple parents](README.md#multiple-parents)
 * [Closing thoughts](README.md#closing-thoughts)
+* [About the author](README.md#author)
 * [Appendix](README.md#appendix)
     * [Complete transcript](README.md#complete-transcript)
