@@ -1,7 +1,5 @@
 # Let's build an extended transcript!
 
-Bryan Smith, [Learning Objects](http://learningobjects.com)
-
 ## <a id="overview"></a> Overview
 
 If you attended a postsecondary institution, you probably know what a transcript is: a document (usually physical) with a list of courses, associated credits and grades, along with a cumulative GPA and cumulative credit hours.
