@@ -1,0 +1,6 @@
+.DS_Store
+*.pdf
+_book
+node_modules
+*.zip
+build-web/
