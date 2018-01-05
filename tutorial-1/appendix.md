@@ -1,0 +1,149 @@
+## <a id="appendix"></a> Appendix
+
+### <a id="complete-transcript"></a> Completed transcript
+
+```json
+{
+  "@context":"https://purl.imsglobal.org/ctx/extended-transcript/v1p0",
+  "id":"urn:uuid:f95fe190-9f8d-4576-85c3-7bdfb892ce5c",
+  "type":"ExtendedTranscript",
+  "createdAt":"2017-04-25T00:00:00.00Z",
+  "issuer":{
+    "id":"urn:uuid:618374e0-e761-4ccb-813a-db66e1d08310",
+    "type":"Issuer",
+    "name":"Mars University",
+    "url":"http://example.org/mars-u",
+    "address":"123 E St NW, Washington, DC 20004",
+    "phone":"0000000000",
+    "issuingPersonFullName":"Inez Wong"
+  },
+  "person":{
+    "id":"urn:uuid:de15d276-a85d-4341-ba3b-d1fb86fed22c",
+    "type":"Person",
+    "fullName":"Amy Wong",
+    "givenName":"Amy",
+    "familyName":"Wong",
+    "email":"awong@example.org",
+    "phone":"0000000000",
+    "mobile":"0000000000",
+    "url":"http://example.org/awong",
+    "studentId":"123456789",
+    "birthDate":"1974-08-14",
+    "sourcedId":"0123456789"
+  },
+  "records":[
+    {
+      "id":"urn:uuid:327de957-910c-4b8d-bdb4-2efc79ebc0e9",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"Mastered",
+      "recordOf":{
+        "id":"urn:uuid:ec7fdc47-5787-4992-b49c-d47f400dcee2",
+        "type":"TranscriptEntityLink",
+        "entityType":"Competency",
+        "entityId":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C"
+      }
+    },
+    {
+      "id":"urn:uuid:ac10a029-05e7-4364-8521-97c3a4018388",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"Mastered",
+      "recordOf":{
+        "id":"urn:uuid:c8d04637-c503-455a-b1d8-826f1e23eb7f",
+        "type":"TranscriptEntityLink",
+        "entityType":"Competency",
+        "entityId":"urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e"
+      }
+    },
+    {
+      "id":"urn:uuid:304abbae-6c2c-41af-b425-c5d7ce26bcdc",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"In Progress",
+      "recordOf":{
+        "id":"urn:uuid:227263e6-0798-43bc-bb45-efa21311d964",
+        "type":"TranscriptEntityLink",
+        "entityType":"Degree",
+        "entityId":"urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1"
+      },
+      "status":{
+        "id":"urn:uuid:1ec6e8e0-7772-4721-aacd-5120b8da6478",
+        "type":"RecordStatus",
+        "completed":false
+      }
+    },
+    {
+      "id":"urn:uuid:630e3899-ed94-4c2d-be74-2f6d24f31774",
+      "type":"Record",
+      "date":"2017-11-01T00:00:00.000Z",
+      "result":"A-",
+      "recordOf":{
+        "id":"urn:uuid:9b058f5b-c807-478b-aa6c-394c7d3c1f57",
+        "type":"TranscriptEntityLink",
+        "entityType":"Course",
+        "entityId":"urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1"
+      }
+    }
+  ],
+  "transcriptEntities":{
+    "id":"urn:uuid:98f56753-973d-4c2d-865a-f567c9896ed7",
+    "type":"TranscriptEntitySet",
+    "competencies":[
+      {
+        "id":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+        "type":"Competency",
+        "name":"Harnessing Planetary Rotational Energy"
+      },
+      {
+        "id":"urn:uuid:b2c3235a-49a5-4222-aba9-80c960cb832e",
+        "type":"Competency",
+        "name":"Alternative Energy",
+        "associations":[
+          {
+            "id":"urn:uuid:7aade551-fbc8-44b5-8b96-036632858117",
+            "type":"Association",
+            "entityType":"Competency",
+            "entityId":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+            "associationType":"isParentOf"
+          }
+        ]
+      }
+    ],
+    "courses":[
+      {
+        "id":"urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+        "type":"Course",
+        "name":"Alternative Energies",
+        "courseCode":"PHY652",
+        "associations":[
+          {
+            "id":"urn:uuid:ca8193b0-0ee5-487c-a8f8-ea4b839aab58",
+            "type":"Association",
+            "entityType":"Competency",
+            "entityId":"urn:uuid:D2986DEB-AF8D-42B9-9E29-E64784B9E12C",
+            "associationType":"isParentOf"
+          }
+        ]
+      }
+    ],
+    "degrees":[
+      {
+        "id":"urn:uuid:ec7273f2-db4a-4f97-8763-8385e52154a1",
+        "type":"Degree",
+        "name":"Applied Physics",
+        "level":"Doctorate",
+        "associations":[
+          {
+            "id":"urn:uuid:e4ca862f-a322-4f9e-9222-6d8ce17582c5",
+            "type":"Association",
+            "entityType":"Course",
+            "entityId":"urn:uuid:f5c50dc2-c256-4da7-8ddd-14b76f3c19e1",
+            "associationType":"isParentOf"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
