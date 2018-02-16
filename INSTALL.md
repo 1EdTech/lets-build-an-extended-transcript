@@ -1,9 +1,9 @@
-h2. Description
+# Description
 Short, hands-on tutorials for getting started with the Extended Transcript standard.
 
-h2. Installation
+# Installation
 
-```
+```sh
 $ npm install
 $ ./node_modules/gitbook-cli/bin/gitbook.js fetch 3.2.3  # magic version that works for me
 ```
